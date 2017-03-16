@@ -17,6 +17,21 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 
+# Build hier blocks
+list(APPEND grc_hier_blocks
+    detector_single_lag_autocorrelation
+)
+foreach(hier_block ${grc_hier_blocks})
+    add_custom_target(
+        ${hier_block}
+        ALL
+        COMMAND grcc ${hier_block}.grc
+        DEPENDS ${hier_block}.grc
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMENT "Generating GNU Radio Hier Block ${hier_block}"
+    )
+endforeach()
+
 install(FILES
     DESTINATION share/gnuradio/grc/blocks
 )
